@@ -1,0 +1,63 @@
+function cancel(){
+  
+  $("ul").empty();
+  $(".row-head").fadeOut(0);
+  $(".cancel-btn").remove();
+  $(".search-col").remove();
+  $(".row-col").css("top","39%");
+  $(".row-head").css("top","50%");
+  $(".row-col").append(' <div class="col-lg-10 col-lg-offset-2 search-col"><div class="search-icon"><i class=" fa fa-search-plus fa-4x"></i></div></div>');
+  $(".fa-search-plus").bind("click", function(){
+		AnimateRotate(0);
+     
+	});
+  
+  $(".row-head").val("");
+  $(".fa-search-plus").css("cursor", "pointer");
+
+  
+}
+
+$(document).ready(function() {
+  var page_top = $(window).scrollTop();
+  $(".fa-search-plus").on("click", function() {
+
+    AnimateRotate(0);
+  });
+});
+
+function AnimateRotate(angle) {
+  $(".fa-search-plus").unbind("click");
+	$(".fa-search-plus").css("cursor", "default");
+  var $elem = $('.search-icon');
+  $({
+    deg: 0
+  }).animate({
+    deg: angle
+  }, {
+    duration: 2000,
+    step: function(now) {
+      $elem.css({
+        transform: 'rotate(' + now + 'deg)'
+      });
+    }
+  });
+  $('.search-icon').click(function() {
+    $('.search-icon').animate({
+      'marginLeft': '290px' //moves left
+    }, 900, function() {
+      $(".search-bar").fadeIn(900, function() {
+        $('.search-bar').animate({
+          'marginLeft': '205px'
+        }, 900, function() {
+          $('.row-head').append("<div class='cancel-btn'><a id='cancel' href='#'>Cancel</a></div>");
+          $("#cancel").bind("click", function(){
+						cancel();		
+          });
+
+        });
+      });
+    });
+
+  });
+}
