@@ -1,0 +1,30 @@
+body{
+  background-color: brown;
+}
+.search-icon{
+  margin-left: 400px;
+  margin-top: 220px;
+  cursor: pointer;
+}
+.search-bar{
+  margin-left: 500px;
+  margin-top:20px;
+  height: 36.5px;
+  width: 250px;
+  display:none;
+  border-radius: 25px;
+}
+.cancel-btn{
+  margin-left: 305px;
+  margin-top: 17.5px;
+  font-size: 22.5px;
+  color:black;
+}
+.cancel-btn > a{
+	color:#40F99B;
+	text-decoration:none;
+}
+.cancel-btn > a:hover{
+	color:#9bffdf;
+	cursor:pointer;
+}
