@@ -1,63 +1,135 @@
-function cancel(){
-  
-  $("ul").empty();
-  $(".row-head").fadeOut(0);
-  $(".cancel-btn").remove();
-  $(".search-col").remove();
-  $(".row-col").css("top","39%");
-  $(".row-head").css("top","50%");
-  $(".row-col").append(' <div class="col-lg-10 col-lg-offset-2 search-col"><div class="search-icon"><i class=" fa fa-search-plus fa-4x"></i></div></div>');
-  $(".fa-search-plus").bind("click", function(){
-		AnimateRotate(0);
-     
-	});
-  
-  $(".row-head").val("");
-  $(".fa-search-plus").css("cursor", "pointer");
-
-  
-}
-
 $(document).ready(function() {
+
   var page_top = $(window).scrollTop();
   $(".fa-search-plus").on("click", function() {
+    AnimateRotate(360);
 
-    AnimateRotate(0);
   });
+  $("#search-submit").submit(function(e){
+    
+  e.preventDefault();
+  $("ul").empty();
+  $(".search-bar-row").animate({
+    top: page_top+30,
+  },100);
+  $(".search-row").animate({
+    top: page_top+30,
+  },500,function(){
+    
+    	var query ="https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch="+$(".search-bar").val()+"&format=json&callback=?";
+    $.getJSON(query, function(data){
+		
+			var myResults = [];
+			var allTitles = "";
+			for(var i=0; i<data.query.search.length; i++){
+				var result = new SearchResult(data.query.search[i].title, data.query.search[i].snippet);
+				myResults.push(result);
+       
+				allTitles += data.query.search[i].title + "|";
+        console.log(query);
+			}
+  
+			var query2 = "https://en.wikipedia.org/w/api.php?action=query&prop=info&inprop=url&titles="+allTitles.substr(0, allTitles.length-1)+"&format=json&callback=?";
+   	
+			$.getJSON(query2, function(data2){
+				var pages = data2.query.pages;
+				var counter = 0;
+				
+				for (var single in pages) {
+					myResults[counter].setUrl(pages[single].fullurl);	
+   myResults[counter].setUrl(pages[single].fullurl);	
+					
+					counter++;
+					
+				}
+				
+				displayResults(myResults);
+      });
+    });
+    
+  });
+  });
+
 });
+function SearchResult(title, snippet){
+	this.snippet=snippet;
+	this.title=title;
+	this.url='';
+	this.setUrl = function(url){
+		this.url=url;
+	}
+}
+function displayResults(myResults){
+	
+	for(var i=0; i<myResults.length; i++){
+		var headerTag = "<span class='link-header'>"+myResults[i].title+"</span></br>";
+		var bodyTag = "<span class='link-body'>..."+myResults[i].snippet+"</span>";
+		var final = "<a class='list-group-item' href='"+myResults[i].url+"' target='_blank'>"+headerTag+bodyTag+"</a>";
+		$("ul").append(final);
+	}
+}
+function cancel()
+{
+  $("ul").empty();
+  $(".search-bar-row").fadeOut(0);
+  $(".cancel-btn").remove();
+  $(".search-column").remove();
+  $(".search-row").css("top", "39%");
+  $(".search-bar-row").css("top", "40%");
+  $(".search-row").append('<div class="col-lg-10 col-lg-offset-2 search-column"><div class="search-image"><i class="fa fa-search-plus fa-5x"></i></fa></div></div>');
+  	$(".fa-search-plus").bind("click", function(){
+		AnimateRotate(360);
+	});
+	$(".search-bar").val("");
+	$(".fa-search-plus").css("cursor", "pointer");
+	
+}
+  
+  
+
 
 function AnimateRotate(angle) {
   $(".fa-search-plus").unbind("click");
-	$(".fa-search-plus").css("cursor", "default");
-  var $elem = $('.search-icon');
-  $({
-    deg: 0
-  }).animate({
-    deg: angle
-  }, {
-    duration: 2000,
-    step: function(now) {
-      $elem.css({
-        transform: 'rotate(' + now + 'deg)'
-      });
-    }
-  });
-  $('.search-icon').click(function() {
-    $('.search-icon').animate({
-      'marginLeft': '290px' //moves left
-    }, 900, function() {
-      $(".search-bar").fadeIn(900, function() {
-        $('.search-bar').animate({
-          'marginLeft': '205px'
-        }, 900, function() {
-          $('.row-head').append("<div class='cancel-btn'><a id='cancel' href='#'>Cancel</a></div>");
-          $("#cancel").bind("click", function(){
-						cancel();		
-          });
+  $(".fa-search-plus").css("cursor", "default");
 
+  var $elem = $('.search-image');
+
+  setTimeout(function() {
+    $({
+      deg: 0
+    }).animate({
+      deg: angle
+    }, {
+      duration: 1000,
+      step: function(now) {
+        $elem.css({
+
+          transform: 'rotate(' + now + 'deg)'
         });
-      });
+      }
     });
+    $(":animated").promise().done(function() {
+      $('.search-column').animate({
+        right: "+=125px"
+      }, 1000, function() {
+        $('.search-bar-row').fadeIn(1000, function() {
+
+          $('.search-bar-row').animate({
+
+           'marginTop' : '-15px'
+
+          },500,function(){
+            $('.search-bar-column').append("<div class='cancel-btn'><a id='cancel' href='#'>Cancel</a></div>");
+            $("#cancel").bind("click", function(){
+						cancel();
+            });
+            
+          });
+        });
+
+      });
+    },200);
 
   });
+
 }
