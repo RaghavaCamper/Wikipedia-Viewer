@@ -1,29 +1,63 @@
-body{
-  background-color: brown;
+html{
+  min-height: 150%;
+  min-width: 300px;
 }
-.search-icon{
-  margin-left: 400px;
-  margin-top: 220px;
-  cursor: pointer;
+body{
+  background-color:brown;
+  height: 100%;
+}
+.search-row{
+  position:absolute;
+  top: 45%;
+  left: 42.5%;
+  width:125px;
+  margin-left: -40px;
+ }
+.search-image{
+  text-align:center;
+  color: #111;
+}
+.fa.fa-search-plus{
+  cursor:pointer;
+}
+.search-bar-row{
+  position:absolute;
+  top:50%;
+  left: 50%;
+  margin-left: -130px;
+  display:none;
+}
+.search-bar-column{
+  width: 250px;
 }
 .search-bar{
-  margin-left: 500px;
-  margin-top:20px;
-  height: 36.5px;
-  width: 250px;
-  display:none;
-  border-radius: 25px;
+  width:280px;
+  height: 40px;
+  border-radius: 20px;
+  padding: 5px 10px;
+  font-weight: bold;
 }
+.row-results-row{
+  position:absolute;
+  top: 25%;
+  width: 100%;
+ }
 .cancel-btn{
-  margin-left: 305px;
-  margin-top: 17.5px;
-  font-size: 22.5px;
-  color:black;
+	
+	color:#40F99B;
+	margin:auto;
+	margin-top: 14px;
+  margin-left: 32px;
+  font-size: 20px;
+	text-align:center;
+  font-weight: bold;
 }
+
 .cancel-btn > a{
 	color:#40F99B;
-	text-decoration:none;
+	text-decoration:italic;
 }
+
 .cancel-btn > a:hover{
 	color:#9bffdf;
 	cursor:pointer;
