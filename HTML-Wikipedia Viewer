@@ -1,23 +1,24 @@
 
 <body>
+
   <div class="container-fluid">
-    <div class="row-col">
-      <div class="col-lg-10 col-lg-offset-2 search-col">
-      <div class="search-icon"><i class=" fa fa-search-plus fa-4x"></i></div>
-        </div>
- </div><!-- end of first row-->
-    <div class="row-head">
-      <div class="col-lg-10 col-lg-offset-2 search-col">
-      <form action='' name='search-submit' id='search-submit'>
-					<input type="text" class="search-bar" cols="70" rows="10" style="font-weight: bold;">
-				</form>
-     </div> 
-    </div><!-- end of second row-->
-    <div class="row-list">
-      <div class='col-lg-10 col-lg-offset-2'>
-      <ul class='list-group'>
-        </ul>
+    <div class="row search-row">
+      <div class="col-lg-10 col-lg-offset-2 search-column">
+        <div class="search-image"><i class="fa fa-search-plus fa-5x"></i></fa>
+       </div>
       </div>
-    
-    </div><!-- end of row list-->
+      </div>
+  <div class="row search-bar-row">
+    <div class="col-lg-10 cl-lg-offset-2 search-bar-column">
+      <form action='' name="search-submit" id="search-submit">
+        <input type="text" class="search-bar">
+      </form>
+    </div>
+  </div>
+  <div class="row-results-row">
+    <div class="col-lg-10 col-lg-offset-2">
+      <ul class="lists">
+      </ul> 
+    </div>
+  </div>
     </div><!-- end of container fluid-->
